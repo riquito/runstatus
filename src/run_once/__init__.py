@@ -8,20 +8,14 @@ import sys
 
 _names = sys.builtin_module_names
 
-def _get_exports_list(module):
-    try:
-        return list(module.__all__)
-    except AttributeError:
-        return [n for n in dir(module) if n[0] != '_']
-
 if 'posix' in _names:
     from posix import *
     import posix
-    __all__.extend(_get_exports_list(posix))
-    del posix
+    __all__.extend(list(posix.__all__))
+    del(posix)
 
 elif 'nt' in _names:
     from nt import *
     import nt
-    __all__.extend(_get_exports_list(nt))
-    del nt
+    __all__.extend(list(nt.__all__))
+    del(nt)
