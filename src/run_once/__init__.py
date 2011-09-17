@@ -21,4 +21,7 @@ if 'posix' in _names:
     del posix
 
 elif 'nt' in _names:
-    pass
+    from nt import *
+    import nt
+    __all__.extend(_get_exports_list(nt))
+    del nt
