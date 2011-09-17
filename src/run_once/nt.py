@@ -23,6 +23,13 @@ import ctypes
 
 
 def get_system_start_time():
+    """
+    Retrieve system start time
+    
+    :return: unixtime
+    :rtype: int
+    """
+    
     output = os.popen('wmic os get lastbootuptime').read()
     startTimeString = output.split()[1].split('.')[0]
     return int(mktime(strptime(startTimeString,'%Y%m%d%H%M%S')))

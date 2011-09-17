@@ -24,6 +24,13 @@ from time import mktime,strptime
 from datetime import date,datetime,timedelta
 
 def get_system_start_time():
+    """
+    Retrieve system start time
+    
+    :return: unixtime
+    :rtype: int
+    """
+    
     today = date.today()
     askTime,uptime = (x.strip() for x in os.popen('uptime').read().split(',')[0].split('up'))
     tsUptime = strptime(uptime,'%H:%M')
