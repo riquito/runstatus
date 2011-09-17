@@ -30,7 +30,7 @@ def get_system_start_time():
     tsAskTime = strptime(askTime,'%H:%M:%S')
     now = datetime(today.year,today.month,today.day) + timedelta(hours=tsAskTime.tm_hour,minutes=tsAskTime.tm_min)
     startTime = now - timedelta(hours=tsUptime.tm_hour,minutes=tsUptime.tm_min,seconds=tsUptime.tm_sec)
-    return mktime(startTime.utctimetuple())
+    return int(mktime(startTime.utctimetuple()))
 
 def process_exists(pid,partial_name=''):
     """
@@ -49,6 +49,7 @@ def process_exists(pid,partial_name=''):
     if not pid: return false
     pid = int(pid)
     
+    # it would be faster to check for /proc/{pid} but osx doesn't support it
     process_string = os.popen('ps -p %d -o cmd=' % pid).read().strip()
     return process_string and partial_name in process_string
 
@@ -84,7 +85,7 @@ def isSingleInstance(codeName):
         if line:
            pid, pidSysStartTime = (int(x) for x in line.split())
 
-        sysStartTime = int(get_system_start_time())
+        sysStartTime = get_system_start_time()
         
         isSingle = not (pid and sysStartTime == pidSysStartTime and process_exists(pid))
         
