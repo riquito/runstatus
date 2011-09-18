@@ -60,7 +60,7 @@ def process_exists(pid,partial_name=''):
     
     # it would be faster to check for /proc/{pid} but osx doesn't support it
     process_string = os.popen('ps -p %d -o cmd=' % pid).read().strip()
-    return process_string and partial_name in process_string
+    return bool(process_string and partial_name in process_string)
 
 def process_kill(pid):
     """
