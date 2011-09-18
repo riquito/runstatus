@@ -16,7 +16,7 @@ See the License for the specific language governing permissions and
 limitations under the License.
 '''
 
-__all__ = ['get_system_start_time','process_exists','process_kill','isSingleInstance']
+__all__ = ['get_system_start_time','process_exists','process_kill','already_running']
 
 import os,sys,atexit
 from fcntl import lockf,LOCK_EX,LOCK_NB,LOCK_UN
@@ -76,8 +76,16 @@ def process_kill(pid):
         pass
       else: raise e
 
-def isSingleInstance(codeName):
-    """Discover if the program is yet running as another process"""
+def already_running(codeName):
+    """
+    Discover if the program is already running as another process
+    
+    :param codeName: a unique name given to the current program
+    :type codeName:  string
+    
+    :return: whether the program is already running as a different process
+    :rtype:  boolean
+    """
     
     pathLockFile = os.path.join(gettempdir(),'lock_'+codeName)
     

@@ -16,7 +16,7 @@ See the License for the specific language governing permissions and
 limitations under the License.
 '''
 
-__all__ = ['get_system_start_time','process_exists','process_kill','isSingleInstance']
+__all__ = ['get_system_start_time','process_exists','process_kill','already_running']
 
 import os
 from time import mktime,strptime
@@ -81,8 +81,17 @@ _close_handle = kerneldll.CloseHandle
 _get_last_error = kerneldll.GetLastError
 _wait_for_single_object = kerneldll.WaitForSingleObject
 
-def isSingleInstance(codeName):
-    """Discover if the program is yet running as another process"""
+def already_running(codeName):
+    """
+    Discover if the program is already running as another process
+    
+    :param codeName: a unique name given to the current program
+    :type codeName:  string
+    
+    :return: whether the program is already running as a different process
+    :rtype:  boolean
+    """
+    
     isSingle = False
     
     handle = _create_mutex(None, True, codeName)
