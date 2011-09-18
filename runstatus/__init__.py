@@ -1,5 +1,5 @@
 
-__version__ = "1.0b"
+__version__ = "1.0"
 __all__ = ['get_system_start_time','process_exists','process_kill','already_running']
 
 import sys
