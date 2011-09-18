@@ -1,4 +1,4 @@
-run_once (a library to detect if a program is yet running)
+runstatus (a library to detect if a program is already running)
 
 Copyright 2011 Riccardo Attilio Galli <riccardo@sideralis.org> [http://www.sideralis.org]
 
