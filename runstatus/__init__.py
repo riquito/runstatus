@@ -1,21 +1,13 @@
 
-# This file has mostly been done looking at the original PSF os.py
-
-# Note:  more names are added to __all__ later.
-__all__ = []
+__version__ = "1.0b"
+__all__ = ['get_system_start_time','process_exists','process_kill','already_running']
 
 import sys
 
 _names = sys.builtin_module_names
 
 if 'posix' in _names:
-    from posix import *
-    import posix
-    __all__.extend(list(posix.__all__))
-    del(posix)
+    from .posix import *
 
 elif 'nt' in _names:
-    from nt import *
-    import nt
-    __all__.extend(list(nt.__all__))
-    del(nt)
+    from .nt import *

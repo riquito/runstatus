@@ -71,7 +71,7 @@ def process_kill(pid):
     """
     try:
       os.kill(int(pid),9) # send SIGKILL to pid
-    except (OSError,e):
+    except OSError as e:
       if e.errno == 3: # No such process
         pass
       else: raise e
@@ -89,8 +89,8 @@ def already_running(codeName):
     
     pathLockFile = os.path.join(gettempdir(),'lock_'+codeName)
     
-    fd=os.open(pathLockFile,os.O_RDWR|os.O_CREAT)
-    fp=os.fdopen(fd,'r+')
+    fd = os.open(pathLockFile,os.O_RDWR|os.O_CREAT)
+    fp = os.fdopen(fd,'r+')
     
     isSingle = False
     
@@ -116,7 +116,7 @@ def already_running(codeName):
         lockf(fp,LOCK_UN)
         fp.close()
     
-    except IOError,e:
+    except IOError as e:
         if e.errno == 11: # Resource temporarily unavailable 
            pass           # (failed to lock because we're not alone)
         else: raise e
